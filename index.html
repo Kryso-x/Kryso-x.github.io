@@ -1,28 +1,22 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Japanese hiragana</title>
+        <title>Japanese</title>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="css/style.css">
-        <script type="text/javascript" src="js/main.js"></script>
-        
+        <link rel="stylesheet" href="css/select.css">
+        <script type="text/javascript" src="js/menu.js"></script>
+
     </head>
-    <body onload="start()">
-            <div id="start" style="text-align: center; margin: 20px;"></div>
-            
-            <div id="characters"></div>
-            
-            <form>
-                <textarea type="text" id="myText" rows="3" cols="125"></textarea>
-            </form>
-            
-            <p id="error"></p>
-
-            <div id="makeid" style="text-align: center;" class="text-center">
-                <button onclick = "makeid()" style="padding: 10px; padding-left: 20px; padding-right: 20px;" id="confirm"></button>
-            </div>
-
-            <button class="style-button" onclick = "checkBackground()">Change theme</button> 
-    </html>  
+    <body style="background-color: black">
+    <div id="wrapper">
+        <button onclick = "hiragana()" class="block" id="hiragana">
+            すき </br>
+            Hiragana
+        </button>
+        <button onclick = "alert(`Currently not available`)" class="block" id="katakana">
+            カタカナ </br>
+            Katakana
+        </button>
+    </div>
     </body>
 </html>
