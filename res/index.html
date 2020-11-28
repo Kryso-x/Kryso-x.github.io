@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SyncTube</title>
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link id="usertheme" href="css/des.css" rel="stylesheet">
+  <link id="customcss" href="css/custom.css" rel="stylesheet">
+  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@5.0.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule="" src="https://cdn.jsdelivr.net/npm/ionicons@5.0.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body style="grid-template-columns: 1fr 4px 300px;">
+  <!-- Video -->
+  <main id="video">
+    <!-- Player -->
+    <section id="player" >
+      <div id="ytapiplayer" class="embed-responsive embed-responsive-16by9"></div>
+	  <!-- Twitch Player -->
+	  <div style="position:absolute; top:0; left:0; display:flex; width:293px;">
+	  
+	  </div>
+      <!-- Video info -->
+      <div class="info">
+        <header id="header">
+          <h2 id="currenttitle">Nothing Playing</h2>
+        </header>
+        <!-- Video controls -->
+        <span class="controls">
+          <button id="togglesynch" title="Toggle video synchronization"><ion-icon id="pause-indicator" name="play"></ion-icon></button>
+          <button id="mediarefresh" title="Refresh player"><ion-icon name="refresh"></ion-icon></button>
+          <button id="fullscreenbtn" title="Fullscreen player"><ion-icon name="expand"></ion-icon></button>
+          <button id="voteskip" title="Vote for skip"><ion-icon name="play-skip-forward"></ion-icon></button>
+        </span>
+      </div>
+    </section>
+    <!-- Playlist -->
+    <section id="playlist">
+      <!-- Playlist info -->
+      <div class="info">
+        <header>
+          <h3>Playlist</h3>
+          <button id="lockplaylist" title="Playlist open"><ion-icon name="lock-open"></ion-icon></button>
+          <button id="getplaylist" title="Retrieve playlist links"><ion-icon name="link"></ion-icon></button>
+        </header>
+        <!-- Playlist controls -->
+        <span class="controls">
+          <button class="collapsed" id="showmediaurl" title="Add video from URL" data-toggle="collapse" data-target="#addfromurl" aria-expanded="false"><ion-icon name="add"></ion-icon></button>
+          <button class="collapsed" id="showcustomembed" title="Embed a custom frame" data-toggle="collapse" data-target="#customembed" aria-expanded="false"><ion-icon name="code"></ion-icon></button>
+          <button id="shuffleplaylist" title="Shuffle playlist"><ion-icon name="shuffle"></ion-icon></button>
+          <button id="clearplaylist" title="Clear playlist"><ion-icon name="close"></ion-icon></button>
+        </span>
+      </div>
+      <!-- Playlist metadata -->
+      <div class="metadata">
+        <span><ion-icon name="logo-youtube"></ion-icon><span id="plcount">0 videos</span></span>
+        <span><ion-icon name="time"></ion-icon><span id="pllength">00:00</span></span>
+      </div>
+      <!-- Add video -->
+      <div class="collapse" id="addfromurl" aria-expanded="false">
+        <div>
+          <button id="insert_template" title="Add template URL">&gt;</button>
+          <input id="mediaurl" type="text" placeholder="Add video from URL">
+        </div>
+        <div>
+          <button id="queue_next">Queue next</button>
+          <button id="queue_end">Queue last</button>
+          <label>
+            <input class="add-temp" type="checkbox" checked="checked">Add as temporary
+          </label>
+        </div>
+      </div>
+      <div class="collapse" id="customembed" aria-expanded="false">
+        <input id="customembed-title" type="text" placeholder="Title (optional)">
+        <textarea id="customembed-content" rows="5" placeholder="Paste the embed code below and click 'Queue next' or 'Queue last'. &#10;Acceptable embed codes are &lt;iframe&gt; or &lt;object&gt;. &#10;CUSTOM EMBEDS CANNOT BE SYNCHRONIZED."></textarea>
+        <div>
+          <button id="ce_queue_next">Queue next</button>
+          <button id="ce_queue_end">Queue last</button>
+          <label>
+            <input class="add-temp" type="checkbox" checked="checked">Add as temporary
+          </label>
+        </div>
+      </div>
+      <!-- Queue -->
+      <div id="queuefail">
+      </div>
+      <div>
+        <ul class="ui-sortable queue_sortable" id="queue"></ul>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer id="footer">
+      <p>Powered by <a href="https://github.com/RblSb/SyncTube" target="_blank" rel="noreferrer noopener">SyncTube</a></p>
+    </footer>
+  </main>
+
+  <!-- Gutter -->
+  <div class="gutter"></div>
+
+  <!-- Chat -->
+  <aside id="chat">
+    <!-- Chat controls -->
+    <div class="controls">
+      <button id="userlisttoggle" title="Show/Hide Userlist">
+        <ion-icon name="chevron-down"></ion-icon>
+        <span id="usercount">Connection...</span>
+      </button>
+      <span>
+        <button id="leader_btn" title="Request video control permissions">Leader</button>
+        <!-- Settings button -->
+        <button id="showoptions" class="collapsed" data-toggle="collapse" data-target="#optionsPanel" aria-expanded="false"><ion-icon name="settings-sharp"></ion-icon></button>
+      </span>
+    </div>
+    <!-- User list -->
+    <div id="userlist"></div>
+    <!-- Settings list -->
+    <ul id="optionsPanel" class="collapse" aria-expanded="false">
+      <div>
+        <h4>Account</h4>
+        <li><button id="exitBtn">Login</button></li>
+      </div>
+      <div>
+        <h4>General</h4>
+        <li><button id="hotkeysBtn"><span>Hotkeys</span></button></li>
+        <li><button id="swapLayoutBtn" title="Swap Layout"><span>Swap Layout</span></button></li>
+      </div>
+      <div>
+        <h4>Video</h4>
+        <li><button id="synchThresholdBtn"><span>Synch Threshold</span></button></li>
+        <li><button id="removeVideoBtn"><span>Remove Video</span></button></li>
+      </div>
+      <div id="adminMenu" style="display: none;">
+        <h4>Chat</h4>
+        <li><button id="clearchatbtn"><span>Clear Chat</span></button></li>
+      </div>
+    </ul>
+    <!-- Messages -->
+    <div id="messagebuffer"></div>
+    <!-- Twitch Chat -->
+	<iframe frameborder="0" title="chat" scrolling="no" id="chat_embed" src="https://www.twitch.tv/embed/kryso___/chat?darkpopout&amp;parent=localhost" style="width: 100%; flex: 1 1 100%;"></iframe>
+    <!-- Message input -->
+    <div id="chatbox">
+      <input id="chatline" type="text" placeholder="Send a message...">
+      <button id="smilesbtn" title="Emotes"><ion-icon name="happy"></ion-icon></button>
+    </div>
+    <div id="smileswrap"></div>
+    <!-- Guest login -->
+    <div id="guestlogin" style="display: none;">
+      <label>Enter As Guest</label>
+      <input id="guestname" type="text" placeholder="Your Name">
+    </div>
+    <div id="guestpassword" style="display: none;">
+      <label>Enter User Password</label>
+      <span>
+        <input id="guestpass" type="text" placeholder="Your Password">
+        <button id="guestpass_icon"><ion-icon name="eye"></ion-icon></button>
+      </span>
+    </div>
+  </aside>
+
+  <script src="https://cdn.jsdelivr.net/npm/split-grid@1.0.9/dist/split-grid.js"></script>
+  <script src="client.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+</html>
